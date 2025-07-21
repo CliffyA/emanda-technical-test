@@ -10,6 +10,7 @@ import { Task } from './tasks/entities/tasks.entity';
       database: ':memory:',
       entities: [Task],
       synchronize: true,
+      logging: true//process.env.NODE_ENV === 'development',
     }),
     TasksModule,
   ],

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Task } from '../types';
+import { TaskForm } from './TaskForm';
+import { TaskList } from './TaskList';
 
-export const TaskItem: React.FC<{ task: Task }> = ({ task }) => {
-  const [showSubtasks, setShowSubtasks] = useState(true);
-
+export const TaskItem: React.FC<{ task: Task }> = ({task, expanded, toggle}:{task:Task, expanded: boolean, toggle:(number)=>void}) => {
   return (
     <div
       style={{
@@ -17,7 +17,11 @@ export const TaskItem: React.FC<{ task: Task }> = ({ task }) => {
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <strong>{task.title}</strong>
+          <strong onClick={()=>toggle(task.id)}>{expanded ? "▼" : "▶" } {task.title}</strong>
+          {expanded && <>
+            <TaskForm parentTask={task}/>
+            <TaskList parentId={task.id}/>
+          </>}
         </div> 
       </div>
     </div>

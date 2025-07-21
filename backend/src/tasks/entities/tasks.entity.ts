@@ -8,9 +8,13 @@ export class Task {
   @Column()
   title!: string;
 
-  @ManyToOne(() => Task, (task) => task.subtasks, { nullable: true })
-  parent?: Task;
+  @Column({ nullable: true })
+  parentId?: number;
+
+  @ManyToOne(() => Task, (task) => task.subtasks, { nullable: true, onDelete: "CASCADE" })
+  @JoinColumn({ name: 'parentId' })
+  private parent?: Task;
 
   @OneToMany(() => Task, (task) => task.parent)
-  subtasks!: Task[];
+  private subtasks!: Task[];
 }

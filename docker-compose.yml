@@ -9,6 +9,10 @@ services:
       - "3000:3000"
     networks:
       - tasknet
+    develop:
+      watch:
+        - action: rebuild
+          path: ./backend
 
   frontend:
     build:
@@ -19,6 +23,10 @@ services:
       - backend
     networks:
       - tasknet
+    develop:
+      watch:
+        - action: rebuild
+          path: ./frontend
 
 networks:
   tasknet:

@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import { TaskProvider, useTasks } from './context/TaskContext';
+import React from 'react';
 import { TaskList } from './components/TaskList';
+import { TaskForm } from './components/TaskForm';
+import {
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const Main = () => {
-  const [title, setTitle] = useState('');
-  const { addTask } = useTasks();
-
   return (
     <div>
       <h1>Task Manager</h1>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="New Task" />
-      <button onClick={() => { addTask(title); setTitle(''); }}>Add Task</button>
-      <TaskList />
+      <TaskForm />
+      <TaskList expanded={true}/>
     </div>
   );
 };
 
 const App = () => (
-  <TaskProvider>
+  <QueryClientProvider client={queryClient}>
     <Main />
-  </TaskProvider>
+  </QueryClientProvider>
 );
 
 export default App;
