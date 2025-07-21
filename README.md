@@ -40,9 +40,9 @@ I also used it to quickly output code that i don't have a perfect recolection of
 
 + There's a lot that would need to be added for this to be a real task tracking app, editing, deleting, sorting / moving tasks to different parents (drag and drop?) etc. I'll worry more about the implementation things rather than features, as a lot of that will come back to what the roadmap for the app looks like.
 
-+ And some sort of user management / login system. Maybe we don't need `userId` on the task table, if we were using SQLite to shard the database per user.
++ Some sort of user authentication and request validation framework. There is a security level to this, but also at the table level with user ids columns on data. If we continue to use SQLite we could shard the whole database per user.
 
-+ There's no docker development configuration. And the way NGINX is serving the static site and proxying the dynamic route makes it a bit difficult to quickly setup a nicer development enviroment in the time limits given.
++ There's no docker development configuration. And the way NGINX is serving the static site and proxying the dynamic backend route makes it a bit difficult to quickly setup a nicer development enviroment in the time limits given.
 I did have a little play with auto rebuilding on change at least, while still pretty unfirendly, is better than manually stop/starting.
 
 + Speaking of NGINX, we'll also want to setup HTTPS on this before release.
@@ -56,3 +56,9 @@ I did have a little play with auto rebuilding on change at least, while still pr
 + There are several vulnarabilities in the npm packages, would be good to get those up to date.
 
 + These changes didn't require any migrations, as the underlying data has not changed. The API has changed, so we might want to be careful with deployment, but I think with the current state of the app, that's no big deal.
+
+## Things I would have asked
+
+I mentioned this earlier, but having a better idea of the roadmap and future app plans would help give context around what parts to focus on and what is good enough for today.
+
+I had questioned things during development around switching to queries instead of the context. Should I have just extended the recursive fetchAll functionality and kept it as a talking point for later? Or should I spend a lot of time to pull it out and do something I feel is better for the future? I've gone ahead and made the changes, as that's what i'd do on the job, tho i'd certainly have a discussion before ripping up core functionality on a real app ;).
